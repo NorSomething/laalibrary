@@ -38,7 +38,6 @@ class Matrix
 		Matrix inverse();
 		int *eigenValues();
 		Matrix eigenVectors();
-		Matrix eigenVectors();
 		int *graph(); //If the matrix represents a graph return number of edges and vertices else return NULL
 		Matrix *LUdecomposition();
 		Matrix *LDUdecomposition();
@@ -224,6 +223,17 @@ int* Matrix::eigenValues()
 
 Matrix Matrix::eigenVectors()
 {
+
+	if (r != c) {
+        cout << "Eigen values can only be found for square matrices.\n";
+        return Matrix(0, 0);
+    }
+
+    /*cout << "Enter matrix elements:\n";
+    for (int i = 0; i < r; i++)
+        for (int j = 0; j < c; j++)
+            cin >> m[i][j];*/
+
     if (r != c) {
         cout << "\n";
         return Matrix(0, 0);
@@ -298,7 +308,7 @@ Matrix Matrix::eigenVectors()
     for (int i = 0; i < n; i++)
         cout << "λ" << i + 1 << " = " << A.m[i][i] << endl;
 
-    cout << "\nEigenvectors :\n";
+    cout << "\nEigenvectors :\n" << endl;
     V.printMatrix();
 
     return V;
@@ -872,7 +882,10 @@ int main()
 	Matrix *svd_result = m.SVD();
 
 	cout<<"Finding EigenValues:"<<endl;
-	int* ev = m.eigenValues();
+	int* eval = m.eigenValues();
+
+	cout<<"Finding EigenVectors:"<<endl;
+	Matrix evec = m.eigenVectors();
 	
 	return 0;
 }
